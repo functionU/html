@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+    canvas {
+	background: black;
+	display: block;
+	}
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	</style>
+
+</head>
+
+<body>
+<canvas id="Mycanvas"></canvas>
+	<script>
+var ctx=document.getElementById("Mycanvas").getContext("2d");
+var allBall=[];
+var h=window.innerHeight/2;
+var w=window.innerWidth/2;
+var myColor=["#1abc9c","#2ecc71","#3498db","#9b59b6","#f1c40f","#e67e22","#e74c3c","#ecf0f1","#95a5a6","#34495e","yellow"];
+function getInstrument(){
+	  ctx.canvas.height=window.innerHeight;
+	  ctx.canvas.width=window.innerWidth;
+}//获取画布工具并设置宽高
+function createBall(num){
+	this.x=w+i*num;
+	this.y=h+i*num;
+	this.angel=0;
+	this.speed=1/300*(num-i);
+	this.color=myColor[Math.round(Math.random()*11)];
+}//球的构造函数
+function createAllBall(num){
+	for(i=0;i<num;i++)
+	{
+	ball=new createBall(num);
+	allBall.push(ball);
+	}
+	
+}//创建并储存球
+function paintingBall(){
+	
+	
+	for(var i=0;i<allBall.length;i++)
+		{
+			ctx.beginPath();
+			ctx.fillStyle=allBall[i].color;
+			ctx.arc(allBall[i].x,allBall[i].y,1,0,2*Math.PI);
+			ctx.fill();
+			
+		}
+	updateLocation();
+	addMode();
+}//绘制球
+function updateLocation(){
+	for(var i=0;i<allBall.length;i++)
+		{
+			allBall[i].x=w+Math.cos(allBall[i].angel)*10*(i+1);
+			allBall[i].y=h+Math.sin(allBall[i].angel)*10*(i+1);
+			allBall[i].angel=allBall[i].angel+allBall[i].speed;
+		}
+	
+	
+	
+}
+function addMode(){
+     ctx.fillStyle ="rgba(0,0,0,0.1)";
+     ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);						
+		}
+
+window.onmousemove=function(){
+	w=event.clientX;
+	h=event.clientY;
+}
+function addcartoon(num){
+getInstrument();
+createAllBall(num);
+setInterval(paintingBall,20);
+		}
+addcartoon(20);
+	
+	
+	
+	
+	</script>
+</body>
+</html>
