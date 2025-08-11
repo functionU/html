@@ -11,6 +11,13 @@
 - **物品系统**: 收集和使用各种物品
 - **进度追踪**: 实时显示游戏进度和探索状态
 
+### 🎲 随机故事生成器
+- **智能生成**: 基于模板自动创建独特故事内容
+- **多种类型**: 冒险、悬疑、奇幻等不同主题
+- **动态扩展**: 根据玩家选择实时生成新节点
+- **随机事件**: 增加故事的不可预测性和趣味性
+- **可重现性**: 支持随机种子，便于分享和调试
+
 ### 💾 存档系统
 - **多槽位存档**: 支持10个手动存档槽位
 - **自动存档**: 每30秒自动保存游戏进度
@@ -49,16 +56,19 @@ npm run preview
 
 ```
 interactive-story/
-├── index.html          # 主HTML文件
-├── style.css           # 样式文件
-├── package.json        # 项目配置
+├── index.html              # 主HTML文件
+├── style.css               # 样式文件
+├── package.json            # 项目配置
 ├── js/
-│   ├── story-engine.js # 故事引擎核心逻辑
-│   ├── story-data.js   # 故事数据定义
-│   ├── ui-manager.js   # UI管理和动画
-│   ├── save-system.js  # 存档系统
-│   └── main.js         # 主程序入口
-└── README.md           # 项目说明
+│   ├── story-engine.js     # 故事引擎核心逻辑
+│   ├── story-data.js       # 故事数据定义
+│   ├── story-generator.js  # 随机故事生成器
+│   ├── random-story-ui.js  # 随机故事UI管理
+│   ├── ui-manager.js       # UI管理和动画
+│   ├── save-system.js      # 存档系统
+│   └── main.js             # 主程序入口
+├── README.md               # 项目说明
+└── RANDOM_STORY_GUIDE.md   # 随机故事生成器指南
 ```
 
 ## 游戏机制
@@ -121,7 +131,29 @@ gameUtils.setPlayerStat('health', 100)
 
 // 添加物品
 gameUtils.addItem('魔法道具')
+
+// 生成随机故事
+gameUtils.generateRandomStory('adventure', 'medium')
+
+// 生成故事变体
+gameUtils.generateStoryVariant()
 ```
+
+## 随机故事生成
+
+系统提供强大的随机故事生成功能：
+
+### 使用方法
+1. **UI界面**: 点击"生成随机故事"按钮
+2. **控制台**: 使用 `gameUtils.generateRandomStory()` 命令
+3. **动态模式**: 启用无限长度的故事生成
+
+### 故事模板
+- **冒险故事**: 探索未知世界，寻找宝藏
+- **悬疑故事**: 解开谜团，揭露真相  
+- **奇幻故事**: 魔法世界的英雄传说
+
+详细使用方法请参考 [随机故事生成器指南](RANDOM_STORY_GUIDE.md)。
 
 ## 自定义故事
 
@@ -130,6 +162,8 @@ gameUtils.addItem('魔法道具')
 1. 定义故事节点和选择
 2. 设置条件和效果
 3. 创建分支路径和多重结局
+
+或者使用随机生成器作为创作灵感的起点！
 
 ## 技术栈
 

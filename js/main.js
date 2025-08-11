@@ -2,6 +2,8 @@
 let gameEngine;
 let uiManager;
 let saveSystem;
+let storyGenerator;
+let randomStoryUI;
 
 // 初始化游戏
 document.addEventListener('DOMContentLoaded', function() {
@@ -9,6 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
     gameEngine = new StoryEngine();
     uiManager = new UIManager();
     saveSystem = new SaveSystem();
+    storyGenerator = new StoryGenerator();
+    randomStoryUI = new RandomStoryUI(storyGenerator, gameEngine, uiManager);
 
     // 初始化游戏引擎
     gameEngine.initialize(storyData);
@@ -44,6 +48,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 设置事件监听器
 function setupEventListeners() {
+    // 生成随机故事按钮
+    document.getElementById('generateBtn').addEventListener('click', () => {
+        randomStoryUI.showGeneratorInterface();
+    });
+
     // 保存按钮
     document.getElementById('saveBtn').addEventListener('click', () => {
         saveSystem.showSaveInterface(gameEngine, uiManager);
@@ -218,6 +227,29 @@ window.gameUtils = {
             gameEngine.updateInventory();
             uiManager.showNotification(`已添加物品: ${item}`, 'success');
         }
+    },
+    
+    // 生成随机故事（调试用）
+    generateRandomStory: function(templateType = null, complexity = 'medium') {
+        const story = storyGenerator.generateRandomStory(templateType, complexity);
+        gameEngine.storyData = story;
+        gameEngine.restart();
+        gameEngine.initialize(story);
+        uiManager.showNotification('随机故事已生成！', 'success');
+        return story;
+    },
+    
+    // 生成故事变体（调试用）
+    generateStoryVariant: function() {
+        if (!gameEngine.storyData) {
+            uiManager.showNotification('请先加载一个故事！', 'warning');
+            return;
+        }
+        const variant = storyGenerator.generateStoryVariant(gameEngine.storyData);
+        gameEngine.storyData = variant;
+        gameEngine.loadNode(gameEngine.currentNode);
+        uiManager.showNotification('故事变体已生成！', 'success');
+        return variant;
     }
 };
 
@@ -229,3 +261,5 @@ console.log('gameUtils.importGameState(json) - 导入游戏状态');
 console.log('gameUtils.jumpToNode(nodeId) - 跳转到指定节点');
 console.log('gameUtils.setPlayerStat(stat, value) - 设置玩家属性');
 console.log('gameUtils.addItem(item) - 添加物品');
+console.log('gameUtils.generateRandomStory(type, complexity) - 生成随机故事');
+console.log('gameUtils.generateStoryVariant() - 生成故事变体');

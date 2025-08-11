@@ -73,7 +73,18 @@ class StoryEngine {
 
         // 跳转到下一个节点
         if (choice.nextNode) {
-            this.loadNode(choice.nextNode);
+            // 检查目标节点是否存在
+            if (this.storyData.nodes[choice.nextNode]) {
+                this.loadNode(choice.nextNode);
+            } else if (this.dynamicGeneration && window.storyGenerator) {
+                // 动态生成下一个节点
+                const generatedNode = window.storyGenerator.generateNextNode(this.currentNode, choice, this.saveGame());
+                this.storyData.nodes[generatedNode.nodeId] = generatedNode.node;
+                this.loadNode(generatedNode.nodeId);
+            } else {
+                console.error('目标节点不存在:', choice.nextNode);
+                this.showEnding();
+            }
         } else {
             console.log('故事结束');
             this.showEnding();
