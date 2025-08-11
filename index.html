@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>互动式故事</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <header class="header">
+            <h1>互动式故事</h1>
+            <div class="controls">
+                <button id="saveBtn" class="btn btn-secondary">保存进度</button>
+                <button id="loadBtn" class="btn btn-secondary">加载进度</button>
+                <button id="restartBtn" class="btn btn-danger">重新开始</button>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="story-container">
+                <div id="storyText" class="story-text">
+                    故事即将开始...
+                </div>
+                
+                <div id="choices" class="choices">
+                    <!-- 选择按钮将在这里动态生成 -->
+                </div>
+                
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="stats">
+                    <h3>状态</h3>
+                    <div id="playerStats">
+                        <div class="stat">
+                            <span>健康:</span>
+                            <span id="health">100</span>
+                        </div>
+                        <div class="stat">
+                            <span>智慧:</span>
+                            <span id="wisdom">50</span>
+                        </div>
+                        <div class="stat">
+                            <span>勇气:</span>
+                            <span id="courage">50</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inventory">
+                    <h3>物品</h3>
+                    <div id="inventoryList">
+                        <!-- 物品列表 -->
+                    </div>
+                </div>
+
+                <div class="history">
+                    <h3>历史</h3>
+                    <div id="historyList">
+                        <!-- 选择历史 -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/story-engine.js"></script>
+    <script src="js/ui-manager.js"></script>
+    <script src="js/save-system.js"></script>
+    <script src="js/story-data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
